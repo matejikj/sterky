@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+
+  /* TASK-02 will replace these placeholders with the full luxury material token set */
+  --cream-50: #fcf6ec;
+  --sand-100: #efe9df;
+  --stone-200: #cec0ab;
+  --charcoal-900: #1d1916;
+  --cement-500: #8c8f94;
+  --radius-s: 10px;
+  --radius-m: 20px;
+  --radius-xl: 100px;
+}
+
+html {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  background: var(--cream-50);
+}
+
+body {
+  margin: 0;
+}
+
+@theme inline {
+  --color-brand-cream: var(--cream-50);
+  --color-brand-sand: var(--sand-100);
+  --color-brand-stone: var(--stone-200);
+  --color-brand-charcoal: var(--charcoal-900);
+  --color-brand-cement: var(--cement-500);
+  --radius-brand-s: var(--radius-s);
+  --radius-brand-m: var(--radius-m);
+  --radius-brand-xl: var(--radius-xl);
+}

@@ -1,6 +1,6 @@
 ---
 id: TASK-01
-status: todo
+status: done
 priority: P0
 depends_on: []
 owner: agent
@@ -36,14 +36,13 @@ Zalozit funkcni projekt v `Astro` s `Tailwind`, pripraveny pro SSG a dalsi tasky
 - Placeholder stranky s jednim `H1` na route
 
 ## Definition of Done
-- [ ] `npm run build` probehne bez chyb
-- [ ] Projekt je nastaven jako staticky/prerender-first
-- [ ] Tailwind utility classes fungují ve strankach
-- [ ] Neexistuje globalni import `gsap` ani `lenis`
-- [ ] Zakladni struktura odpovida dalsim taskum (komponenty/layouts/pages)
+- [x] `npm run build` probehne bez chyb
+- [x] Projekt je nastaven jako staticky/prerender-first
+- [x] Tailwind utility classes fungují ve strankach
+- [x] Neexistuje globalni import `gsap` ani `lenis`
+- [x] Zakladni struktura odpovida dalsim taskum (komponenty/layouts/pages)
 
 ## Agent Notes
-- Stav: todo
-- Rizika / blokery: rozhodnout zdroj fontu (self-host vs placeholder)
-- Follow-up: TASK-02 zavede tokeny a visual foundation
-
+- Stav: done
+- Rizika / blokery: fonty jsou zatim placeholder (system font), rozhodnuti v TASK-02
+- Follow-up: TASK-02 zavede plne tokeny, typografii a showroom visual foundation
