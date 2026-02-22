@@ -1,6 +1,6 @@
 ---
 id: TASK-02
-status: todo
+status: done
 priority: P0
 depends_on: [TASK-01]
 owner: agent
@@ -37,14 +37,13 @@ Zavest design tokeny a globalni UI kostru, aby stranka od zacatku pusobila jako 
 - Konzistentni dark/light surface styling podle DNA (bez agresivnich shadow)
 
 ## Definition of Done
-- [ ] Tokeny odpovidaji zadanemu barevnemu setu a radiusum
-- [ ] Typografie rozlisuje editorial text vs mono spec vrstvu
-- [ ] Header je sticky a pri scrollu nerusi obsah (aspon CSS shrink/opacity stav)
-- [ ] Mobilni layout drzi `12px` padding, desktop `18px`
-- [ ] UI vizualne nepouziva defaultni Tailwind look (zretelna custom stylizace)
+- [x] Tokeny odpovidaji zadanemu barevnemu setu a radiusum
+- [x] Typografie rozlisuje editorial text vs mono spec vrstvu
+- [x] Header je sticky a pri scrollu nerusi obsah (aspon CSS shrink/opacity stav)
+- [x] Mobilni layout drzi `12px` padding, desktop `18px`
+- [x] UI vizualne nepouziva defaultni Tailwind look (zretelna custom stylizace)
 
 ## Agent Notes
-- Stav: todo
-- Rizika / blokery: dostupnost fontu `Systemia` (mozna fallback do implementace)
-- Follow-up: TASK-03 doplni metadata, schema helpers a technicke SEO
-
+- Stav: done
+- Rizika / blokery: `Systemia` a `Azeret Mono` jsou zatim pouze deklarovane stacky bez self-hostingu
+- Follow-up: TASK-03 doplni metadata, schema helpers, canonical/OG a technicke SEO utility

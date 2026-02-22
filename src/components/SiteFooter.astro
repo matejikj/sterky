@@ -1,6 +1,30 @@
-<footer class="border-t border-black/5 bg-white/80">
-  <div class="mx-auto grid w-full max-w-7xl gap-4 px-3 py-8 text-sm text-neutral-700 md:px-[18px] md:grid-cols-2">
-    <p>Bootstrap scaffold pro Astro + Tailwind (TASK-01).</p>
-    <p class="md:text-right">Dalsi kroky: design tokeny, SEO metadata, obsahove routy.</p>
-  </div>
+---
+import Container from './ui/Container.astro';
+import PillButton from './ui/PillButton.astro';
+import SurfacePanel from './ui/SurfacePanel.astro';
+---
+
+<footer class="pb-[24px] pt-[14px]">
+  <Container>
+    <SurfacePanel tone="glass" class="showroom-light p-[16px] md:p-[20px]">
+      <div class="grid gap-[16px] md:grid-cols-[1.2fr_0.8fr] md:items-start">
+        <div class="space-y-[12px]">
+          <p class="eyebrow">Showroom foundation</p>
+          <p class="max-w-[62ch] text-[14px] leading-[1.65] text-charcoal-900/80">
+            TASK-02 zavadi materialove tokeny, typografii a layout kostru. Dalsi tasky doplni SEO metadata, obsahove detail routy a islands interaktivitu.
+          </p>
+        </div>
+        <div class="grid gap-[12px] md:justify-items-end">
+          <div class="flex flex-wrap gap-[8px] md:justify-end">
+            <PillButton href="/sterky/" variant="ghost">Typy sterek</PillButton>
+            <PillButton href="/realizace/" variant="ghost">Realizace</PillButton>
+            <PillButton href="/#poptavka">Kalkulace</PillButton>
+          </div>
+          <p class="font-mono text-[12px] tracking-[0.08em] text-cement-700 uppercase">
+            Astro • Tailwind • islands-ready scaffold
+          </p>
+        </div>
+      </div>
+    </SurfacePanel>
+  </Container>
 </footer>

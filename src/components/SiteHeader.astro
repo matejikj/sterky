@@ -1,10 +1,76 @@
-<header class="sticky top-0 z-40 border-b border-black/5 bg-stone-50/90 backdrop-blur supports-[backdrop-filter]:bg-stone-50/75">
-  <div class="mx-auto flex w-full max-w-7xl items-center justify-between px-3 py-3 md:px-[18px] md:py-4">
-    <a href="/" class="text-sm tracking-[0.18em] text-neutral-900 uppercase">Sterky Atelier</a>
-    <nav aria-label="Hlavni navigace" class="flex items-center gap-2 text-sm text-neutral-700">
-      <a href="/sterky/" class="rounded-full px-3 py-2 hover:bg-black/5">Sterky</a>
-      <a href="/realizace/" class="rounded-full px-3 py-2 hover:bg-black/5">Realizace</a>
-      <a href="#poptavka" class="rounded-full border border-black/10 px-3 py-2 text-neutral-900 hover:bg-black/5">Konzultace</a>
-    </nav>
+---
+import Container from './ui/Container.astro';
+import PillButton from './ui/PillButton.astro';
+
+const pathname = Astro.url.pathname;
+const isSterky = pathname.startsWith('/sterky');
+const isRealizace = pathname.startsWith('/realizace');
+---
+
+<header class="site-header" data-site-header data-scrolled="false">
+  <div class="site-header-shell">
+    <Container class="site-header-inner flex items-center justify-between gap-3 py-[14px] md:py-[16px]">
+      <div class="flex min-w-0 items-center gap-3">
+        <a href="/" class="site-header-brand flex items-center gap-3">
+          <span class="flex h-[11px] w-[11px] rounded-full bg-gold-400"></span>
+          <span class="font-mono text-[12px] tracking-[0.16em] text-charcoal-900 uppercase">Sterky Atelier</span>
+        </a>
+        <span class="hidden h-[18px] w-px bg-black/8 md:block"></span>
+        <p class="hidden font-mono text-[12px] tracking-[0.06em] text-cement-700 md:block">
+          dekorativni & betonove sterky
+        </p>
+      </div>
+
+      <div class="flex items-center gap-1 md:gap-2">
+        <nav aria-label="Hlavni navigace" class="flex items-center gap-1">
+          <a
+            href="/sterky/"
+            aria-current={isSterky ? 'page' : undefined}
+            class:list={[
+              'inline-flex min-h-[44px] items-center rounded-[100px] px-[12px] md:px-[14px] font-mono text-[12px] tracking-[0.06em] uppercase transition duration-400',
+              isSterky ? 'bg-black/6 text-charcoal-900' : 'text-cement-700 hover:bg-black/5 hover:text-charcoal-900',
+            ]}
+          >
+            Sterky
+          </a>
+          <a
+            href="/realizace/"
+            aria-current={isRealizace ? 'page' : undefined}
+            class:list={[
+              'inline-flex min-h-[44px] items-center rounded-[100px] px-[12px] md:px-[14px] font-mono text-[12px] tracking-[0.06em] uppercase transition duration-400',
+              isRealizace ? 'bg-black/6 text-charcoal-900' : 'text-cement-700 hover:bg-black/5 hover:text-charcoal-900',
+            ]}
+          >
+            Realizace
+          </a>
+        </nav>
+        <PillButton href="/#poptavka" class="hidden sm:inline-flex">Konzultace</PillButton>
+      </div>
+    </Container>
+    <div class="site-header-progress" aria-hidden="true">
+      <span data-scroll-progress></span>
+    </div>
   </div>
 </header>
+
+<script is:inline>
+  (() => {
+    const header = document.querySelector('[data-site-header]');
+    const progress = header?.querySelector('[data-scroll-progress]');
+    if (!header || !progress) return;
+
+    const update = () => {
+      const y = window.scrollY || 0;
+      const scrolled = y > 12;
+      header.setAttribute('data-scrolled', scrolled ? 'true' : 'false');
+
+      const max = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+      const ratio = Math.min(100, Math.max(0, (y / max) * 100));
+      progress.style.setProperty('--scroll-progress', String(ratio));
+    };
+
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+  })();
+</script>

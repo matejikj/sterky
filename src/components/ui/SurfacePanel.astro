@@ -1,0 +1,21 @@
+---
+interface Props {
+  as?: keyof HTMLElementTagNameMap;
+  tone?: 'light' | 'sand' | 'dark' | 'glass';
+  class?: string;
+}
+
+const { as: Tag = 'div', tone = 'light', class: className } = Astro.props;
+
+const toneClasses = {
+  light: 'bg-white/80 border-black/8 text-charcoal-900',
+  sand: 'bg-sand-100/80 border-black/8 text-charcoal-900',
+  dark: 'bg-charcoal-900 border-white/10 text-cream-50',
+  glass: 'bg-white/55 border-black/6 text-charcoal-900 backdrop-blur-sm',
+};
+---
+
+<Tag class:list={['rounded-[20px] border', toneClasses[tone], className]}>
+  <slot />
+</Tag>
+

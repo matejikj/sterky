@@ -1,0 +1,41 @@
+---
+import Container from './Container.astro';
+
+interface Props {
+  as?: keyof HTMLElementTagNameMap;
+  id?: string;
+  tone?: 'cream' | 'sand' | 'charcoal' | 'transparent';
+  padded?: boolean;
+  container?: boolean;
+  class?: string;
+  contentClass?: string;
+}
+
+const {
+  as: Tag = 'section',
+  id,
+  tone = 'transparent',
+  padded = true,
+  container = true,
+  class: className,
+  contentClass,
+} = Astro.props;
+
+const toneClasses = {
+  cream: 'bg-cream-50',
+  sand: 'bg-sand-100/65',
+  charcoal: 'bg-charcoal-900 text-cream-50',
+  transparent: '',
+};
+---
+
+<Tag id={id} class:list={[toneClasses[tone], padded && 'py-[72px] md:py-[100px]', className]}>
+  {container ? (
+    <Container class={contentClass}>
+      <slot />
+    </Container>
+  ) : (
+    <slot />
+  )}
+</Tag>
+
