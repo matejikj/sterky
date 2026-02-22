@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import PillButton from '../../components/ui/PillButton.astro';
 import Section from '../../components/ui/Section.astro';
 import SurfacePanel from '../../components/ui/SurfacePanel.astro';
+import { sterkyTypes } from '../../data/sterky';
 
 export const prerender = true;
 ---
@@ -23,27 +24,19 @@ export const prerender = true;
       </SurfacePanel>
 
       <div class="grid gap-[14px] md:grid-cols-3">
-        <SurfacePanel as="article" tone="sand" class="p-[16px] md:p-[20px]">
-          <p class="spec-label">Type 01</p>
-          <h3 class="mt-[10px]">Betonova sterka</h3>
-          <p class="mt-[10px] text-[14px] leading-[1.6] text-charcoal-900/80">
-            Detail route placeholder pro technicke vrstvy, mikropraskliny, udrzbu a vhodnost mistnosti.
-          </p>
-        </SurfacePanel>
-        <SurfacePanel as="article" class="p-[16px] md:p-[20px]">
-          <p class="spec-label">Type 02</p>
-          <h3 class="mt-[10px]">Dekorativni sterka</h3>
-          <p class="mt-[10px] text-[14px] leading-[1.6] text-charcoal-900/80">
-            Placeholder pro kolekci finishu, odstiny a close-up galerie materialu.
-          </p>
-        </SurfacePanel>
-        <SurfacePanel as="article" class="p-[16px] md:p-[20px]">
-          <p class="spec-label">Type 03</p>
-          <h3 class="mt-[10px]">Vodeodolna sterka</h3>
-          <p class="mt-[10px] text-[14px] leading-[1.6] text-charcoal-900/80">
-            Placeholder pro koupelny a sprchy s durazem na ochranu, sealer a udrzbu.
-          </p>
-        </SurfacePanel>
+        {sterkyTypes.map((item, index) => (
+          <SurfacePanel as="article" tone={index === 0 ? 'sand' : 'light'} class="p-[16px] md:p-[20px]">
+            <p class="spec-label">Type {String(index + 1).padStart(2, '0')}</p>
+            <h3 class="mt-[10px]">{item.title}</h3>
+            <p class="mt-[10px] text-[14px] leading-[1.6] text-charcoal-900/80">{item.summary}</p>
+            <a
+              href={`/sterky/${item.slug}/`}
+              class="mt-[12px] inline-flex min-h-[44px] items-center rounded-[100px] border border-black/10 px-[14px] font-mono text-[12px] tracking-[0.08em] uppercase hover:bg-black/5"
+            >
+              Detail /sterky/{item.slug}/
+            </a>
+          </SurfacePanel>
+        ))}
       </div>
     </div>
   </Section>

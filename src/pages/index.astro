@@ -1,13 +1,40 @@
 ---
+import JsonLd from '../components/JsonLd.astro';
 import Layout from '../layouts/Layout.astro';
 import PillButton from '../components/ui/PillButton.astro';
 import Section from '../components/ui/Section.astro';
 import SurfacePanel from '../components/ui/SurfacePanel.astro';
+import { createLocalBusinessSchema, createOrganizationSchema, createServiceSchema } from '../lib/schema';
+import { toAbsoluteUrl } from '../lib/seo';
 
 export const prerender = true;
+
+const homeUrl = toAbsoluteUrl('/');
+const schemas = [
+  createOrganizationSchema({
+    name: 'Sterky Atelier',
+    url: homeUrl,
+    description: 'Showroom prezentace dekorativnich a betonovych sterek.',
+  }),
+  createLocalBusinessSchema({
+    name: 'Sterky Atelier',
+    url: homeUrl,
+    description: 'Aplikace dekorativnich a betonovych sterek na miru.',
+    areaServed: 'CZ',
+  }),
+  createServiceSchema({
+    name: 'Aplikace dekorativnich a betonovych sterek',
+    serviceType: 'Dekorativni a betonove sterky',
+    url: homeUrl,
+    description: 'Konzultace, navrh povrchu, aplikace sterek a technicka specifikace systemu.',
+    providerName: 'Sterky Atelier',
+    areaServed: 'CZ',
+  }),
+];
 ---
 
 <Layout title="Sterky Atelier | Luxury showroom" description="Placeholder homepage pro dekorativni a betonove sterky.">
+  <JsonLd data={schemas} />
   <Section class="pb-[28px] md:pb-[40px]">
     <div class="grid gap-[14px] lg:grid-cols-[1.1fr_0.9fr]">
       <SurfacePanel class="showroom-light p-[16px] md:p-[20px]">

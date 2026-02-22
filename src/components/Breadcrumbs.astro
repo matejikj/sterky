@@ -1,0 +1,59 @@
+---
+import { createBreadcrumbListSchema } from '../lib/schema';
+import { toAbsoluteUrl } from '../lib/seo';
+import { serializeJsonLd } from '../lib/schema';
+
+export interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+  emitSchema?: boolean;
+  class?: string;
+}
+
+const { items, emitSchema = true, class: className } = Astro.props;
+
+const schemaItems = emitSchema
+  ? items.map((item, index) => ({
+      name: item.label,
+      url: toAbsoluteUrl(item.href ?? Astro.url.pathname, Astro.site),
+      index,
+    }))
+  : [];
+
+const breadcrumbSchema =
+  emitSchema && schemaItems.length > 0
+    ? createBreadcrumbListSchema(schemaItems.map(({ name, url }) => ({ name, url })))
+    : null;
+---
+
+<nav aria-label="Drobeckova navigace" class:list={['flex items-center', className]}>
+  <ol class="flex flex-wrap items-center gap-x-[10px] gap-y-[6px]">
+    {items.map((item, index) => {
+      const isLast = index === items.length - 1;
+      return (
+        <li class="flex items-center gap-x-[10px]">
+          {item.href && !isLast ? (
+            <a href={item.href} class="font-mono text-[12px] tracking-[0.06em] text-cement-700 uppercase hover:text-charcoal-900">
+              {item.label}
+            </a>
+          ) : (
+            <span
+              aria-current={isLast ? 'page' : undefined}
+              class="font-mono text-[12px] tracking-[0.06em] text-charcoal-900 uppercase"
+            >
+              {item.label}
+            </span>
+          )}
+          {!isLast && <span aria-hidden="true" class="text-cement-500">/</span>}
+        </li>
+      );
+    })}
+  </ol>
+</nav>
+
+{breadcrumbSchema && <script type="application/ld+json" set:html={serializeJsonLd(breadcrumbSchema)} />}
+

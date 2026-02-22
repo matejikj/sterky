@@ -1,6 +1,6 @@
 ---
 id: TASK-03
-status: todo
+status: done
 priority: P0
 depends_on: [TASK-02]
 owner: agent
@@ -38,14 +38,13 @@ Postavit technicky korektni SEO vrstvu (metadata, sitemap, robots, canonical, sc
 - Routing skeleton pro detail typu sterky a detail realizace
 
 ## Definition of Done
-- [ ] Kazda stranka ma title + meta description + canonical
-- [ ] OG/Twitter metadata je centralizovane a pouzitelne napric routami
-- [ ] Sitemap obsahuje hlavni routy
-- [ ] Schema helpery existuji alespon pro `Organization/Service/Breadcrumb/FAQ`
-- [ ] Struktura rout odpovida SEO pozadavkum ze zadani
+- [x] Kazda stranka ma title + meta description + canonical
+- [x] OG/Twitter metadata je centralizovane a pouzitelne napric routami
+- [x] Sitemap obsahuje hlavni routy
+- [x] Schema helpery existuji alespon pro `Organization/Service/Breadcrumb/FAQ`
+- [x] Struktura rout odpovida SEO pozadavkum ze zadani
 
 ## Agent Notes
-- Stav: todo
-- Rizika / blokery: chybi finalni domena (pouzit config placeholder)
-- Follow-up: TASK-04 naplni semanticky obsah a interni prolinkovani
-
+- Stav: done
+- Rizika / blokery: finalni domena zatim chybi, pouzit placeholder `https://sterky.example` (override pres `PUBLIC_SITE_URL`)
+- Follow-up: TASK-04 naplni semanticky obsah/detail routy a rozsirene interni prolinkovani

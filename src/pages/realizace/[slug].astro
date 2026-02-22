@@ -1,0 +1,76 @@
+---
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Section from '../../components/ui/Section.astro';
+import SurfacePanel from '../../components/ui/SurfacePanel.astro';
+import { realizaceProjects } from '../../data/realizace';
+import Layout from '../../layouts/Layout.astro';
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return realizaceProjects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const breadcrumbs = [
+  { label: 'Domu', href: '/' },
+  { label: 'Realizace', href: '/realizace/' },
+  { label: project.title },
+];
+---
+
+<Layout
+  title={`${project.title} | Realizace`}
+  description={project.summary}
+  canonicalPath={`/realizace/${project.slug}/`}
+  pageType="article"
+>
+  <Section>
+    <div class="grid gap-[14px]">
+      <SurfacePanel tone="glass" class="p-[16px] md:p-[20px]">
+        <Breadcrumbs items={breadcrumbs} />
+        <p class="eyebrow mt-[14px]">Projekt detail • routing skeleton</p>
+        <h1 class="mt-[10px]">{project.title}</h1>
+        <p class="mt-[14px] max-w-[74ch] text-[16px] leading-[1.7] text-charcoal-900/80">{project.summary}</p>
+      </SurfacePanel>
+
+      <div class="grid gap-[14px] md:grid-cols-[1.05fr_0.95fr]">
+        <SurfacePanel class="showroom-light p-[16px] md:p-[20px]">
+          <div class="texture-stage aspect-[16/10] rounded-[20px] border border-black/8"></div>
+          <div class="mt-[14px] grid gap-[8px]">
+            <p class="spec-label">Pouzity system</p>
+            <p class="text-[15px] leading-[1.6] text-charcoal-900/82">{project.system}</p>
+          </div>
+        </SurfacePanel>
+
+        <SurfacePanel tone="sand" class="p-[16px] md:p-[20px]">
+          <div class="grid gap-[12px]">
+            <div>
+              <p class="spec-label">Mistnost</p>
+              <p class="mt-[6px] text-[15px]">{project.roomType}</p>
+            </div>
+            <div>
+              <p class="spec-label">Typ sterky</p>
+              <a
+                href={`/sterky/${project.sterkaSlug}/`}
+                class="mt-[6px] inline-flex text-[15px] text-charcoal-900 underline decoration-black/25 underline-offset-4 hover:decoration-black/50"
+              >
+                /sterky/{project.sterkaSlug}/
+              </a>
+            </div>
+            <div class="rounded-[10px] border border-black/8 bg-white/65 p-[12px]">
+              <p class="spec-label">Next task placeholder</p>
+              <p class="mt-[6px] text-[14px] leading-[1.55] text-charcoal-900/78">
+                TASK-04 doplni semanticky detail realizace: vrstvy, odstin, podklad, cas realizace a udrzbu.
+              </p>
+            </div>
+          </div>
+        </SurfacePanel>
+      </div>
+    </div>
+  </Section>
+</Layout>
+

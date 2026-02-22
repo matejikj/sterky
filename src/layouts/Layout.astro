@@ -1,4 +1,5 @@
 ---
+import SEOHead from '../components/SEOHead.astro';
 import '../styles/global.css';
 import SiteFooter from '../components/SiteFooter.astro';
 import SiteHeader from '../components/SiteHeader.astro';
@@ -6,11 +7,22 @@ import SiteHeader from '../components/SiteHeader.astro';
 interface Props {
   title: string;
   description?: string;
+  canonicalPath?: string;
+  seoImage?: {
+    url: string;
+    alt?: string;
+  };
+  noindex?: boolean;
+  pageType?: 'website' | 'article';
 }
 
 const {
   title,
   description = 'Luxury showroom prezentace dekorativnich a betonovych sterek.',
+  canonicalPath,
+  seoImage,
+  noindex = false,
+  pageType = 'website',
 } = Astro.props;
 ---
 
@@ -22,8 +34,16 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={description} />
-    <title>{title}</title>
+    <SEOHead
+      title={title}
+      description={description}
+      pathname={Astro.url.pathname}
+      canonicalPath={canonicalPath}
+      site={Astro.site}
+      image={seoImage}
+      noindex={noindex}
+      type={pageType}
+    />
   </head>
   <body class="min-h-screen bg-cream-50 text-charcoal-900 antialiased">
     <a class="skip-link" href="#main-content">Preskocit na obsah</a>

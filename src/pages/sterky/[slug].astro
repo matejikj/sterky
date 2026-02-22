@@ -1,0 +1,87 @@
+---
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import JsonLd from '../../components/JsonLd.astro';
+import Section from '../../components/ui/Section.astro';
+import SurfacePanel from '../../components/ui/SurfacePanel.astro';
+import { sterkyTypes } from '../../data/sterky';
+import Layout from '../../layouts/Layout.astro';
+import { createServiceSchema } from '../../lib/schema';
+import { toAbsoluteUrl } from '../../lib/seo';
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return sterkyTypes.map((item) => ({
+    params: { slug: item.slug },
+    props: { item },
+  }));
+}
+
+const { item } = Astro.props;
+
+const breadcrumbs = [
+  { label: 'Domu', href: '/' },
+  { label: 'Sterky', href: '/sterky/' },
+  { label: item.title },
+];
+
+const serviceSchema = createServiceSchema({
+  name: `${item.title} • aplikace sterek`,
+  serviceType: item.title,
+  description: item.summary,
+  url: toAbsoluteUrl(Astro.url.pathname, Astro.site),
+  providerName: 'Sterky Atelier',
+  areaServed: 'CZ',
+});
+---
+
+<Layout
+  title={`${item.title} | Sterky`}
+  description={item.summary}
+  canonicalPath={`/sterky/${item.slug}/`}
+>
+  <JsonLd data={serviceSchema} />
+  <Section>
+    <div class="grid gap-[14px]">
+      <SurfacePanel tone="glass" class="p-[16px] md:p-[20px]">
+        <Breadcrumbs items={breadcrumbs} />
+        <p class="eyebrow mt-[14px]">Detail typu sterky • routing skeleton</p>
+        <h1 class="mt-[10px]">{item.title}</h1>
+        <p class="mt-[14px] max-w-[74ch] text-[16px] leading-[1.7] text-charcoal-900/80">{item.summary}</p>
+      </SurfacePanel>
+
+      <div class="grid gap-[14px] md:grid-cols-[1.15fr_0.85fr]">
+        <SurfacePanel class="showroom-light p-[16px] md:p-[20px]">
+          <div class="texture-stage aspect-[16/10] rounded-[20px] border border-black/8"></div>
+          <div class="mt-[14px] grid gap-[8px] sm:grid-cols-2">
+            <div class="rounded-[10px] border border-black/8 bg-white/65 p-[12px]">
+              <p class="spec-label">Finish</p>
+              <p class="mt-[6px] text-[14px]">{item.finish}</p>
+            </div>
+            <div class="rounded-[10px] border border-black/8 bg-white/65 p-[12px]">
+              <p class="spec-label">Vhodne prostory</p>
+              <p class="mt-[6px] text-[14px]">{item.useCase}</p>
+            </div>
+          </div>
+        </SurfacePanel>
+
+        <SurfacePanel tone="sand" class="p-[16px] md:p-[20px]">
+          <p class="spec-label">SEO / content placeholder</p>
+          <h2 class="mt-[10px]">Technicky detail typu sterky</h2>
+          <p class="mt-[12px] text-[15px] leading-[1.65] text-charcoal-900/80">
+            TASK-04 doplni plny semanticky obsah, FAQ, interni prolinkovani na realizace a materialove specifikace.
+          </p>
+          <div class="mt-[16px] grid gap-[10px]">
+            <a href="/realizace/" class="rounded-[100px] border border-black/10 px-[14px] py-[10px] font-mono text-[12px] tracking-[0.08em] uppercase hover:bg-black/5">
+              Projit realizace
+            </a>
+            <a href="/#poptavka" class="rounded-[100px] border border-black/10 px-[14px] py-[10px] font-mono text-[12px] tracking-[0.08em] uppercase hover:bg-black/5">
+              Nezavazna konzultace
+            </a>
+          </div>
+        </SurfacePanel>
+      </div>
+    </div>
+  </Section>
+</Layout>
+
